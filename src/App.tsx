@@ -17,7 +17,7 @@ gsap.registerPlugin(ScrollTrigger);
 const Navbar = () => (
   <nav className="navbar ui-content">
     <div className="nav-brand">
-      <img src="/logo.jpg" alt="GAMER_MIND Logo" className="brand-logo" />
+      <img src="./logo.jpg" alt="GAMER_MIND Logo" className="brand-logo" />
     </div>
   </nav>
 );

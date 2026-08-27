@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { Text, Html, useGLTF, useAnimations } from '@react-three/drei';
 
 function RobotCharacter() {
-  const { scene, animations } = useGLTF('/RobotExpressive.glb');
+  const { scene, animations } = useGLTF('./RobotExpressive.glb');
   const { actions } = useAnimations(animations, scene);
   
   useEffect(() => {

@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { Html, useTexture } from '@react-three/drei';
 
 function LogoBox() {
-  const logoTexture = useTexture('/logo.jpg');
+  const logoTexture = useTexture('./logo.jpg');
   const boxRef = useRef<THREE.Mesh>(null);
 
   useFrame((_state, delta) => {

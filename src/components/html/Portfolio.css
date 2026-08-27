@@ -111,9 +111,9 @@
 }
 
 /* If images are generated later, they can be plugged in here or as inline styles */
-.project-1 { background-image: url('/neural_npc_system.jpg'); }
-.project-2 { background-image: url('/cyberpunk_city_gen.jpg'); }
-.project-3 { background-image: url('/quantum_engine.jpg'); }
+.project-1 { background-image: url('./neural_npc_system.jpg'); }
+.project-2 { background-image: url('./cyberpunk_city_gen.jpg'); }
+.project-3 { background-image: url('./quantum_engine.jpg'); }
 
 .project-content {
   padding: 2rem;

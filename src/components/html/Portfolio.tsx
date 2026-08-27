@@ -5,7 +5,7 @@ export const Portfolio = () => {
     <div className="portfolio-section">
       <nav className="portfolio-nav">
         <div className="nav-logo">
-          <img src="/logo.jpg" alt="GAMER_MIND Logo" className="brand-logo" />
+          <img src="./logo.jpg" alt="GAMER_MIND Logo" className="brand-logo" />
         </div>
       </nav>
       <div className="portfolio-container">
