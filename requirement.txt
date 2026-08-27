@@ -1,0 +1,6 @@
+# requirement.txt
+# This file is typically used for Python dependencies.
+# If you are adding a Python backend (e.g., Flask, FastAPI) to this project,
+# you can list your dependencies here. For example:
+# fastapi==0.103.1
+# uvicorn==0.23.2
