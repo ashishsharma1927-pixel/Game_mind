@@ -1,10 +1,12 @@
 import { useRef, useMemo, useEffect } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { useStore } from '../../../store/useStore';
 import * as THREE from 'three';
 import { Text } from '@react-three/drei';
 
 export const ForestWorld = () => {
+  const { size } = useThree();
+  const isMobile = size.width < 768;
   const scrollProgress = useStore((state) => state.scrollProgress);
   const instancedMeshRef = useRef<THREE.InstancedMesh>(null);
   const textRef = useRef<THREE.Group>(null);
@@ -114,16 +116,39 @@ export const ForestWorld = () => {
       </points>
 
       {/* Text Reveal */}
-      <group ref={textRef} position={[0, 5, -35]}>
-        <Text fontSize={3} color="#ffffff">
+      <group ref={textRef} position={[0, isMobile ? 3.5 : 4.5, -35]}>
+        <Text
+          fontSize={isMobile ? 0.75 : 2.0}
+          color="#ffffff"
+          anchorX="center"
+          anchorY="middle"
+          textAlign="center"
+          whiteSpace="nowrap"
+        >
           WORLD BUILDING
           <meshBasicMaterial attach="material" transparent opacity={0} />
         </Text>
-        <Text position={[0, -2, 0]} fontSize={1} color="#aaaaaa">
+        <Text
+          position={[0, isMobile ? -1.0 : -1.6, 0]}
+          fontSize={isMobile ? 0.36 : 0.75}
+          color="#aaaaaa"
+          anchorX="center"
+          anchorY="middle"
+          textAlign="center"
+          whiteSpace="nowrap"
+        >
           I don't just write code.
           <meshBasicMaterial attach="material" transparent opacity={0} />
         </Text>
-        <Text position={[0, -3.5, 0]} fontSize={1} color="#aaaaaa">
+        <Text
+          position={[0, isMobile ? -1.7 : -2.6, 0]}
+          fontSize={isMobile ? 0.33 : 0.75}
+          color="#aaaaaa"
+          anchorX="center"
+          anchorY="middle"
+          textAlign="center"
+          whiteSpace="nowrap"
+        >
           I build worlds people can explore.
           <meshBasicMaterial attach="material" transparent opacity={0} />
         </Text>

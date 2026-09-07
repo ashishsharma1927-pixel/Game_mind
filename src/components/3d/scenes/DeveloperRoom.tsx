@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { useStore } from '../../../store/useStore';
 import * as THREE from 'three';
 import { Text, Html, useGLTF, useAnimations } from '@react-three/drei';
@@ -27,6 +27,8 @@ function RobotCharacter() {
 
 
 export const DeveloperRoom = () => {
+  const { size } = useThree();
+  const isMobile = size.width < 768;
   const scrollProgress = useStore((state) => state.scrollProgress);
   
   const textRef1 = useRef<THREE.Group>(null); // THE DEVELOPER
@@ -86,8 +88,10 @@ export const DeveloperRoom = () => {
     if (scrollProgress <= 0.99 && showButtons) setShowButtons(false);
   });
 
+  const isVisible = scrollProgress > 0.72;
+
   return (
-    <group position={[0, 0, -130]}>
+    <group position={[0, 0, -130]} visible={isVisible}>
       
       {/* Dark Room Walls / Floor */}
       <mesh position={[0, -2, 0]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -100,52 +104,113 @@ export const DeveloperRoom = () => {
 
       <pointLight position={[0, 5, 0]} intensity={2} distance={20} color="#00ffcc" />
 
-
-
       {/* The Developer Text */}
-      <group ref={textRef1} position={[0, 3, -10]}>
-        <Text fontSize={2} color="#ffffff">
+      <group ref={textRef1} position={[0, isMobile ? 2.5 : 3, -10]}>
+        <Text
+          fontSize={isMobile ? 0.65 : 1.6}
+          color="#ffffff"
+          anchorX="center"
+          anchorY="middle"
+          textAlign="center"
+          whiteSpace="nowrap"
+        >
           THE DEVELOPER
         </Text>
-        <Text position={[0, -1.5, 0]} fontSize={0.8} color="#aaaaaa">
+        <Text
+          position={[0, isMobile ? -0.85 : -1.4, 0]}
+          fontSize={isMobile ? 0.32 : 0.65}
+          color="#aaaaaa"
+          anchorX="center"
+          anchorY="middle"
+          textAlign="center"
+          whiteSpace="nowrap"
+        >
           Hi, I build interactive experiences.
         </Text>
       </group>
 
       {/* READY TO PLAY? */}
-      <group ref={textRef2} position={[0, 2, -15]}>
-        <Text fontSize={3} color="#00ffcc">
+      <group ref={textRef2} position={[0, isMobile ? 1.5 : 2, -15]}>
+        <Text
+          fontSize={isMobile ? 0.75 : 2.0}
+          color="#00ffcc"
+          anchorX="center"
+          anchorY="middle"
+          textAlign="center"
+          whiteSpace="nowrap"
+        >
           READY TO PLAY?
         </Text>
-        <Text position={[0, -2, 0]} fontSize={1} color="#ffffff">
+        <Text
+          position={[0, isMobile ? -0.9 : -1.6, 0]}
+          fontSize={isMobile ? 0.36 : 0.75}
+          color="#ffffff"
+          anchorX="center"
+          anchorY="middle"
+          textAlign="center"
+          whiteSpace="nowrap"
+        >
           LET'S BUILD SOMETHING.
         </Text>
       </group>
 
       {/* GAME OVER? / NOT YET */}
-      <group ref={textRef3} position={[0, 2, -15]}>
-        <Text fontSize={4} color={isNotYet ? "#00ffcc" : "#ff0033"}>
+      <group ref={textRef3} position={[0, isMobile ? 1.5 : 2, -15]}>
+        <Text
+          fontSize={isMobile ? 0.85 : 2.2}
+          color={isNotYet ? "#00ffcc" : "#ff0033"}
+          anchorX="center"
+          anchorY="middle"
+          textAlign="center"
+          whiteSpace="nowrap"
+        >
           {isNotYet ? "NOT YET." : "GAME OVER?"}
         </Text>
         
-        <Html position={[0, -3, 0]} transform distanceFactor={10} zIndexRange={[100, 0]}>
+        <Html center position={[0, isMobile ? -1.6 : -2.4, 0]} transform distanceFactor={10} zIndexRange={[100, 0]}>
           <div style={{
             opacity: showButtons ? 1 : 0,
             transition: 'opacity 0.5s',
             display: 'flex',
-            gap: '20px',
+            flexDirection: isMobile ? 'column' : 'row',
+            gap: isMobile ? '10px' : '20px',
+            alignItems: 'center',
             pointerEvents: showButtons ? 'auto' : 'none'
           }}>
-            <button style={{
-              background: '#00ffcc', color: 'black', border: 'none', 
-              padding: '15px 30px', fontSize: '18px', fontWeight: 'bold', 
-              cursor: 'pointer', textTransform: 'uppercase', letterSpacing: '2px'
-            }}>View My Work</button>
-            <button style={{
-              background: 'transparent', color: '#00ffcc', border: '2px solid #00ffcc', 
-              padding: '15px 30px', fontSize: '18px', fontWeight: 'bold', 
-              cursor: 'pointer', textTransform: 'uppercase', letterSpacing: '2px'
-            }}>Contact Me</button>
+            <button 
+              onClick={() => {
+                document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              style={{
+                background: '#00ffcc', color: 'black', border: 'none', 
+                padding: isMobile ? '10px 20px' : '15px 30px',
+                fontSize: isMobile ? '13px' : '18px',
+                fontWeight: 'bold', 
+                cursor: 'pointer', textTransform: 'uppercase',
+                letterSpacing: isMobile ? '1px' : '2px',
+                borderRadius: '4px',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              View My Work
+            </button>
+            <button 
+              onClick={() => {
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              style={{
+                background: 'transparent', color: '#00ffcc', border: '2px solid #00ffcc', 
+                padding: isMobile ? '10px 20px' : '15px 30px',
+                fontSize: isMobile ? '13px' : '18px',
+                fontWeight: 'bold', 
+                cursor: 'pointer', textTransform: 'uppercase',
+                letterSpacing: isMobile ? '1px' : '2px',
+                borderRadius: '4px',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              Contact Me
+            </button>
           </div>
         </Html>
       </group>

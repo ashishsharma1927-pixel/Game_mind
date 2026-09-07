@@ -100,9 +100,9 @@ export const Portfolio = () => {
           <h2 className="section-title">&gt; ESTABLISH_CONNECTION</h2>
           <p>Ready to build the next generation of interactive experiences?</p>
           <div className="contact-links">
-            <a href="mailto:hello@example.com" className="btn-primary">INITIALIZE EMAIL</a>
-            <a href="#" className="btn-secondary">GITHUB</a>
-            <a href="#" className="btn-secondary">LINKEDIN</a>
+            <a href="mailto:ashishsharma1927@gmail.com" className="btn-primary">INITIALIZE EMAIL</a>
+            <a href="https://github.com/ashishsharma1927-pixel" className="btn-secondary">GITHUB</a>
+            <a href="https://www.linkedin.com/in/ashish-sharma-742268416/" className="btn-secondary">LINKEDIN</a>
           </div>
           <p className="copyright">SYSTEM STATUS: ONLINE. © {new Date().getFullYear()} ALL RIGHTS RESERVED.</p>
         </footer>

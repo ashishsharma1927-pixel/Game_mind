@@ -18,10 +18,19 @@ export const cameraKeyframes = [
 ];
 
 export const CinematicCamera = () => {
-  const { camera } = useThree();
+  const { camera, size } = useThree();
   const scrollProgress = useStore((state) => state.scrollProgress);
   const lookAtTarget = useRef(new THREE.Vector3(0, 0.5, 0));
-  
+  const isMobile = size.width < 768;
+
+  // Adapt FOV for portrait/mobile viewports to prevent narrow horizontal clipping
+  useMemo(() => {
+    if (camera instanceof THREE.PerspectiveCamera) {
+      camera.fov = isMobile ? 58 : 50;
+      camera.updateProjectionMatrix();
+    }
+  }, [camera, isMobile]);
+
   // Mouse position for subtle parallax
   const mousePos = useRef(new THREE.Vector2());
 

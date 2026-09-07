@@ -1,10 +1,10 @@
 import { useRef, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { useStore } from '../../../store/useStore';
 import * as THREE from 'three';
 import { Html, useTexture } from '@react-three/drei';
 
-function LogoBox() {
+function LogoBox({ isMobile }: { isMobile: boolean }) {
   const logoTexture = useTexture('./logo.jpg');
   const boxRef = useRef<THREE.Mesh>(null);
 
@@ -15,9 +15,11 @@ function LogoBox() {
     }
   });
 
+  const boxSize = isMobile ? 1.2 : 1.5;
+
   return (
     <mesh ref={boxRef} position={[0, 0, 0]}>
-      <boxGeometry args={[1.5, 1.5, 1.5]} />
+      <boxGeometry args={[boxSize, boxSize, boxSize]} />
       {/* Apply the texture to all 6 sides, make it emissive so it glows */}
       <meshStandardMaterial 
         map={logoTexture} 
@@ -32,6 +34,8 @@ function LogoBox() {
 }
 
 export const Hero = () => {
+  const { size } = useThree();
+  const isMobile = size.width < 768;
   const scrollProgress = useStore((state) => state.scrollProgress);
   const groupRef = useRef<THREE.Group>(null);
   const particlesRef = useRef<THREE.Points>(null);
@@ -91,17 +95,18 @@ export const Hero = () => {
   return (
     <group position={[0, 0, 0]}>
       {/* HTML Overlay "I CREATE WORLDS." */}
-      <Html position={[0, -2.5, 0]} transform distanceFactor={10} zIndexRange={[100, 0]}>
+      <Html center position={[0, isMobile ? -2.2 : -2.5, 0]} transform distanceFactor={10} zIndexRange={[100, 0]}>
         <div style={{
           opacity: textOpacity,
           transition: 'opacity 0.1s',
           color: '#ffffff',
           fontFamily: "'Space Grotesk', sans-serif",
-          fontSize: '4rem',
+          fontSize: isMobile ? '1.15rem' : '3.8rem',
           fontWeight: 700,
           whiteSpace: 'nowrap',
           textShadow: '0 0 10px rgba(0, 255, 204, 0.5), 2px 0 0 rgba(255, 0, 51, 0.5)',
-          letterSpacing: '5px',
+          letterSpacing: isMobile ? '1.5px' : '5px',
+          textAlign: 'center',
           pointerEvents: 'none'
         }}>
           I CREATE WORLDS.
@@ -109,7 +114,7 @@ export const Hero = () => {
       </Html>
 
       {/* The new glowing 3D logo box */}
-      <LogoBox />
+      <LogoBox isMobile={isMobile} />
 
       {/* The Core / Abstract Controller */}
       <group ref={groupRef}>
