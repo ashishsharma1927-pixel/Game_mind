@@ -1,6 +1,12 @@
 # Gamer Mind
 
-A modern 3D web application built with React, Three.js, and GSAP.
+A modern 3D web application built with React, Three.js, and GSAP. Designed to offer a highly immersive and cinematic experience with a fully responsive mobile-first UI.
+
+## Features
+- 🎮 **Immersive 3D Environments**: Explore diverse 3D scenes (Hero, Forest, Projects, Developer Room) with smooth camera transitions.
+- 🚀 **High-Performance Animations**: Powered by GSAP and ScrollTrigger for a cinematic storytelling experience.
+- 📱 **Fully Responsive UI**: A mobile-ready overlay interface seamlessly integrated with the 3D canvas.
+- ⚡ **Modern Stack**: Built with Vite, React 19, Three.js, and Zustand for state management.
 
 ## Technologies Used
 - **[React](https://reactjs.org/)** (v19)
